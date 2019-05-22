@@ -98,7 +98,7 @@ class PriorityQueue():
             
     def pop(self):
         
-        return self.members.pop()
+        return self.members.pop() if len(self.members) != 0 else None
     
         
 def shortest_path(M,start,goal):
@@ -118,11 +118,13 @@ def shortest_path(M,start,goal):
     
     # add the current node to the explored list
     explored =  set()
-    explored.add(current_node.idx)
+
     
     # if this is already the goal node, return the path
     while(current_node and current_node.idx != goal):
     
+        explored.add(current_node.idx)
+        
         # get the intersections connected to the current frontier node intersection
         for idx in M.roads[current_node.idx]:
 
@@ -144,7 +146,7 @@ def shortest_path(M,start,goal):
         # pop a node from the frontier and add it to the explored list
         current_node = frontier.pop()
         
-        explored.add(current_node.idx)
+        
     
     if current_node:
         # return the found path
